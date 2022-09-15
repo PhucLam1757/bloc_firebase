@@ -21,6 +21,7 @@ class AddUser extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
               onPressed: addUser,
@@ -34,10 +35,44 @@ class AddUser extends StatelessWidget {
                 "Remove User",
               ),
             ),
+            TextButton(
+              onPressed: updateUserName,
+              child: Text(
+                "Set UserName",
+              ),
+            ),
+            TextButton(
+              onPressed: updateData2,
+              child: Text(
+                "Update Data 2",
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> updateData2() {
+    // Call the user's CollectionReference to add a new user
+    return users
+        .doc("azVTi4GrT2Xa4T3Zbjsj")
+        .set('somethings')
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> updateUserName() {
+    // Call the user's CollectionReference to add a new user
+    return users
+        .doc("7RRIZj0XCYGUelMV3cpO")
+        .update({
+          'full_name': 'Tran Tuan Anh', // John Doe
+          'company': 'Viettel', // Stokes and Sons
+          'age': age // 42
+        })
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
   }
 
   Future<void> removeUser() {
