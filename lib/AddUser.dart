@@ -59,7 +59,7 @@ class AddUser extends StatelessWidget {
     // FirebaseFirestore.instance
     //     .collection('users')
     //     .doc()
-    //     .set({'WOT1Of30xbsI1P5V48nO': 'abc'});
+    //     .update({'8L6ZhmPEyaeQGfpbY8sy': 'abc'});
 
     return users
         .doc("Syoy3iNEqc4d9AFkrwEB")

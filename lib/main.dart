@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('Sign in successfully - UserCredential ${userCredential.user?.email}');
 
                 Navigator.push(context, MaterialPageRoute(builder: (_context) {
-                  return AddUser('Nguyen Van Long', 'CodeFresher', 28);
+                  return UserInformation();
                 }));
 
               } on FirebaseAuthException catch (e) {
