@@ -55,9 +55,17 @@ class AddUser extends StatelessWidget {
 
   Future<void> updateData2() {
     // Call the user's CollectionReference to add a new user
+
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc()
+    //     .set({'WOT1Of30xbsI1P5V48nO': 'abc'});
+
     return users
-        .doc("azVTi4GrT2Xa4T3Zbjsj")
-        .set('somethings')
+        .doc("Syoy3iNEqc4d9AFkrwEB")
+        .update({
+          'full_name': 'Ha Anh Tuan',
+        })
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
@@ -65,9 +73,9 @@ class AddUser extends StatelessWidget {
   Future<void> updateUserName() {
     // Call the user's CollectionReference to add a new user
     return users
-        .doc("7RRIZj0XCYGUelMV3cpO")
-        .update({
-          'full_name': 'Tran Tuan Anh', // John Doe
+        .doc("I3elRhNPadNmeV8W3zb6")
+        .set({
+          'full_name': 'Vu Tuan Long', // John Doe
           'company': 'Viettel', // Stokes and Sons
           'age': age // 42
         })
