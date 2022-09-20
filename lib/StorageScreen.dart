@@ -37,9 +37,11 @@ class _StorageScreenState extends State<StorageScreen> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  final imageRef = storageRef.child("flutter17/buoi15/banner_2022_flutter.jpg");
+                  final imageRef = storageRef.child("flutter18/photos/banner_2022_flutter.jpg");
 
                   _downloadImageUrl = await imageRef.getDownloadURL();
+
+                  print(_downloadImageUrl);
 
                   setState(() {});
                 },
@@ -50,7 +52,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
                   // chon file trong bo nho thiet bij
 
-                  String testFilePath = "/storage/emulated/0/Pictures/LatestShare.jpg";
+                  String testFilePath = "/storage/emulated/0/Download/5tips.jpeg";
 
                   if (await Permission.storage.request().isGranted) {
                     upLoadImageFileFromAndroidStorage(testFilePath);
@@ -88,7 +90,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
 // Upload file and metadata to the path 'images/mountains.jpg'
     final uploadTask = storageRef
-        .child("anh/anh_up_len2.jpg")
+        .child("anh/flutter/anh_up_len3.jpeg")
         .putFile(file);
 
 // Listen for state changes, errors, and completion of the upload.
