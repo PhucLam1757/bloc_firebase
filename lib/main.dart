@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter18_firebase/AddUser.dart';
 import 'package:flutter18_firebase/StorageScreen.dart';
@@ -90,65 +91,67 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(onPressed: () async {
-              try {
-                UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: "codefresher112334455@example.com",
-                    password: "123456"
-                );
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: "codefresher112334455@example.com",
+                            password: "123456");
 
-                print('UserCredential ${userCredential.user?.email}');
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'weak-password') {
-                  print('The password provided is too weak.');
-                } else if (e.code == 'email-already-in-use') {
-                  print('The account already exists for that email.');
-                }
-              } catch (e) {
-                print(e);
-              }
-            }, child: Text('Register')),
-            ElevatedButton(onPressed: () async {
+                    print('UserCredential ${userCredential.user?.email}');
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                      print('The password provided is too weak.');
+                    } else if (e.code == 'email-already-in-use') {
+                      print('The account already exists for that email.');
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text('Register')),
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential = await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: "codefresher112@example.com",
+                            password: "SuperSecretPassword!");
 
+                    String? _userID = await userCredential.user?.uid;
+                    // YDRwGEXmr9gnWjsATiOSN3ZuwuC2
+                    print('UID: $_userID');
 
+                    print(
+                        'Sign in successfully - UserCredential ${userCredential.user?.email}');
 
-              try {
-                UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: "codefresher112@example.com",
-                    password: "SuperSecretPassword!"
-                );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_context) {
+                      return StorageScreen();
+                    }));
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      print('No user found for that email.');
+                    } else if (e.code == 'wrong-password') {
+                      print('Wrong password provided for that user.');
+                    }
 
-
-
-                String? _userID = await userCredential.user?.uid;
-                // YDRwGEXmr9gnWjsATiOSN3ZuwuC2
-                print('UID: $_userID');
-
-                print('Sign in successfully - UserCredential ${userCredential.user?.email}');
-
-                Navigator.push(context, MaterialPageRoute(builder: (_context) {
-                  return StorageScreen();
-                }));
-
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  print('No user found for that email.');
-                } else if (e.code == 'wrong-password') {
-                  print('Wrong password provided for that user.');
-                }
-
-                // await FirebaseCrashlytics.instance.recordError(
-                //     'error',
-                //     null,
-                //     reason: 'a fatal error',
-                //     // Pass in 'fatal' argument
-                //     fatal: true
-                // );
-              }
-            }, child: Text('Log in')),
+                    // await FirebaseCrashlytics.instance.recordError(
+                    //     'error',
+                    //     null,
+                    //     reason: 'a fatal error',
+                    //     // Pass in 'fatal' argument
+                    //     fatal: true
+                    // );
+                  }
+                },
+                child: Text('Log in')),
+            ElevatedButton(onPressed: () {
+              FirebaseCrashlytics.instance.crash();
+            }, child: Text('Test Crash!')),
           ],
         ),
       ),
